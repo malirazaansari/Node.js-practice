@@ -5,11 +5,11 @@ const readstream = fs.createReadStream("./docs/blog2.txt", {
 });
 const writeStream = fs.createWriteStream("./docs/blog3.txt");
 
-// readstream.on("data", (chunk) => {
-//   console.log("---New chunk---");
-//   console.log(chunk);
-//   writeStream.write("\nNEW CHUNK\n");
-//   writeStream.write(chunk);
-// });
+readstream.on("data", (chunk) => {
+  console.log("---New chunk---");
+  console.log(chunk);
+  writeStream.write("\nNEW CHUNK\n");
+  writeStream.write(chunk);
+});
 //pipeing
 readstream.pipe(writeStream);
