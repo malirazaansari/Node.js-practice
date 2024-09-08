@@ -4,3 +4,4 @@ const greet = (name) => {
 
 greet("ali");
 greet("raza");
+greet("ansari");
