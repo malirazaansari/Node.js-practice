@@ -1,7 +1,63 @@
 const express = require("express");
+const morgan = require("morgan");
+const mongoose = require("mongoose");
+const Blog = require("./models/blog");
 
 const app = express();
 
+const dbURI =
+  "mongodb+srv://Ali_Raza:alirazaansari4@codeninja.hrlo2.mongodb.net/ningadb?retryWrites=true&w=majority";
+
+mongoose
+  .connect(dbURI)
+  .then((result) => console.log("db connexted"))
+  .catch((err) => console.log(err));
+
+app.use(express.static("public"));
+app.use(morgan("dev"));
+// app.use(morgan("tiny"));
+
+app.get("/blog-add", (req, res) => {
+  const blog = new Blog({
+    title: "new blog 2",
+    snippet: "about my new blog",
+    body: "body of my new blog",
+  });
+  blog
+    .save()
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => console.log(err));
+});
+
+app.get("/allblogs", (req, res) => {
+  Blog.find()
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => console.log(err));
+});
+
+app.get("/singleblog", (req, res) => {
+  Blog.findById("66e365fea3a3e1bb509585c7")
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => console.log(err));
+});
+// looging by self now we use morgan logger
+// app.use((req, res, next) => {
+//   console.log("new request made");
+//   console.log("Host: ", req.hostname);
+//   console.log("path: ", req.url);
+//   console.log("method: ", req.method);
+//   next();
+// });
+// app.use((req, res, next) => {
+//   console.log("next middle ware gonna runn now:");
+//   next();
+// });
 app.set("view engine", "ejs");
 // app.set("views", "assets");
 
