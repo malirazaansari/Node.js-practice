@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const Blog = require("./models/blog");
+const { render } = require("ejs");
 
 const app = express();
 
@@ -14,6 +15,7 @@ mongoose
   .catch((err) => console.log(err));
 
 app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 // app.use(morgan("tiny"));
 
@@ -65,11 +67,25 @@ app.listen(3000, () => {
   console.log("Server is running on port 3000");
 });
 app.get("/", (req, res) => {
+  // const blogs = [
+  //   { title: "ali", snippet: "raza" },
+  //   { title: "ali", snippet: "raza" },
+  //   { title: "ali", snippet: "raza" },
+  // ];
   //   res.send("<p>Home Page</p>");
   // res.sendFile("./assets/index.html", { root: __dirname });
-  res.render("index", { title: "Home" });
+  // res.render("index", { title: "Home", blogs });
+  res.redirect("/blogs");
 });
 
+app.get("/blogs", (req, res) => {
+  Blog.find()
+    .sort({ createdAt: 1 })
+    .then((result) => {
+      res.render("index", { title: "Home", blogs: result });
+    })
+    .catch((err) => console.log(err));
+});
 app.get("/about", (req, res) => {
   //   res.send("<p>About Page</p>");
   // res.sendFile("./assets/about.html", { root: __dirname });
@@ -83,6 +99,27 @@ app.get("/blogs/create", (req, res) => {
 });
 app.get("/aboutus", (req, res) => {
   res.redirect("/about");
+});
+
+app.post("/blogs", (req, res) => {
+  // console.log(req.body);
+  const blog = new Blog(req.body);
+  blog
+    .save()
+    .then((result) => {
+      res.redirect("/blogs");
+    })
+    .catch((err) => console.log("err"));
+});
+
+app.get("/blog/:id", (req, res) => {
+  const id = req.params.id;
+  Blog.findById(id)
+    .then((result) => {
+      res.render("details", { blog: result, title: "Blog Detail" });
+    })
+    .catch((err) => console.log(err));
+  // console.log(id);
 });
 
 app.use((req, res) => {

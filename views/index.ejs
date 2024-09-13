@@ -3,10 +3,20 @@
   <%- include('./partials/head.ejs') %>
 
   <body>
-    <!-- //ejs dynamic way of code <% const name = 'ali' %> -->
+    <!-- ejs dynamic way of code <% const name = 'ali' %> -->
 
     <%- include('./partials/nav.ejs') %>
 
-    <div class="blogs content"><h2>All Blogs</h2></div>
+    <div class="blogs content">
+      <h2>All Blogs</h2>
+      <% if( blogs.length > 0) { %> <% blogs.forEach (blog => { %>
+      <a href="/blog/<%= blog._id %>">
+        <h3 class="title"><%= blog.title %></h3>
+        <p class="snippet"><%= blog.snippet%></p>
+      </a>
+      <% }) %> <% } else { %>
+      <p></p>there is no blog to display</p>
+      <% } %>
+    </div>
   </body>
 </html>
