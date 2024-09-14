@@ -1,8 +1,8 @@
 const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
-const Blog = require("./models/blog");
 const { render } = require("ejs");
+const blogRouters = require("./routes/blogRoute");
 
 const app = express();
 
@@ -14,40 +14,14 @@ mongoose
   .then((result) => console.log("db connexted"))
   .catch((err) => console.log(err));
 
+//blog routes
+app.use(blogRouters);
+
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
 // app.use(morgan("tiny"));
 
-app.get("/blog-add", (req, res) => {
-  const blog = new Blog({
-    title: "new blog 2",
-    snippet: "about my new blog",
-    body: "body of my new blog",
-  });
-  blog
-    .save()
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => console.log(err));
-});
-
-app.get("/allblogs", (req, res) => {
-  Blog.find()
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => console.log(err));
-});
-
-app.get("/singleblog", (req, res) => {
-  Blog.findById("66e365fea3a3e1bb509585c7")
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => console.log(err));
-});
 // looging by self now we use morgan logger
 // app.use((req, res, next) => {
 //   console.log("new request made");
@@ -78,48 +52,10 @@ app.get("/", (req, res) => {
   res.redirect("/blogs");
 });
 
-app.get("/blogs", (req, res) => {
-  Blog.find()
-    .sort({ createdAt: 1 })
-    .then((result) => {
-      res.render("index", { title: "Home", blogs: result });
-    })
-    .catch((err) => console.log(err));
-});
 app.get("/about", (req, res) => {
   //   res.send("<p>About Page</p>");
   // res.sendFile("./assets/about.html", { root: __dirname });
   res.render("about", { title: "About" });
-});
-
-app.get("/blogs/create", (req, res) => {
-  //   res.send("<p>About Page</p>");
-  // res.sendFile("./assets/about.html", { root: __dirname });
-  res.render("create", { title: "Create" });
-});
-app.get("/aboutus", (req, res) => {
-  res.redirect("/about");
-});
-
-app.post("/blogs", (req, res) => {
-  // console.log(req.body);
-  const blog = new Blog(req.body);
-  blog
-    .save()
-    .then((result) => {
-      res.redirect("/blogs");
-    })
-    .catch((err) => console.log("err"));
-});
-
-app.get("/blog/:id", (req, res) => {
-  const id = req.params.id;
-  Blog.findById(id)
-    .then((result) => {
-      res.render("details", { blog: result, title: "Blog Detail" });
-    })
-    .catch((err) => console.log(err));
-  // console.log(id);
 });
 
 app.use((req, res) => {
