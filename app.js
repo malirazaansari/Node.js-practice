@@ -2,6 +2,7 @@ const express = require("express");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 const { render } = require("ejs");
+const bodyParser = require("body-parser");
 const blogRouters = require("./routes/blogRoute");
 
 const app = express();
@@ -10,7 +11,7 @@ const dbURI =
   "mongodb+srv://Ali_Raza:alirazaansari4@codeninja.hrlo2.mongodb.net/ningadb?retryWrites=true&w=majority";
 
 mongoose
-  .connect(dbURI)
+  .connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((result) => console.log("db connexted"))
   .catch((err) => console.log(err));
 
@@ -20,6 +21,8 @@ app.use(blogRouters);
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
+app.use(express.json());
+app.use(bodyParser.json());
 // app.use(morgan("tiny"));
 
 // looging by self now we use morgan logger
