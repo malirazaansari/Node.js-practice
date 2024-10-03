@@ -10,7 +10,6 @@ function twoSum(nums, target) {
   return null;
 }
 
-// Example usage:
 console.log(twoSum([2, 7, 11, 15], 26));
 
 // let n = 5;
