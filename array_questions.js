@@ -29,18 +29,3 @@ console.log(twoSum([2, 7, 11, 15], 26));
 // }
 
 // printRightTriangle(5);
-
-// let t = 5;
-// let string = "";
-// for (let i = 1; i <= t; i++) {
-//   for (let j = 0; j < t - i; j++) {
-//     string += " ";
-//   }
-//   for (let k = 0; k < i; k++) {
-//     string += "*";
-//   }
-//   string += "\n";
-// }
-// console.log(string);
-
-// let rows = 5;
