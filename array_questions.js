@@ -1,4 +1,4 @@
-function twoSum(nums, target) {
+function twoSums(nums, target) {
   const map = {};
   for (let i = 0; i < nums.length; i++) {
     const complement = target - nums[i];
@@ -10,7 +10,7 @@ function twoSum(nums, target) {
   return null;
 }
 
-console.log(twoSum([2, 7, 11, 15], 26));
+console.log(twoSums([2, 7, 11, 15], 26));
 
 // let n = 5;
 // for (let i = 1; i <= n; i++) {
