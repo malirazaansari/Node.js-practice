@@ -65,7 +65,6 @@ class ParkingLot {
   }
 }
 
-// Example Usage:
 const lot = new ParkingLot(3);
 lot.parkCar("Car1");
 lot.parkCar("Car2");
