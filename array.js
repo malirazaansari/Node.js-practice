@@ -69,6 +69,7 @@ const lot = new ParkingLot(3);
 lot.parkCar("Car1");
 lot.parkCar("Car2");
 lot.parkCar("Cars");
+lot.parkCar("Cars2");
 
 lot.displayStatus();
 lot.removeCar(1);
