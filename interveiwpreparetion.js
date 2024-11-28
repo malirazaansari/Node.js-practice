@@ -32,24 +32,23 @@ let target = 11;
 // console.log(twosum2(arr, target));
 
 arr = [2, 4, 5, 3, 4, 1];
-// function duplicating(arr) {
-//   let result = [];
-//   for (let i = 0; i < arr.length; i++) {
-//     let isDuplicate = false;
-//     for (let j = 0; j < result.length; j++) {
-//       if (arr[i] === result[j]) {
-//         isDuplicate = true;
-//         break;
-//       }
-//     }
-//     if (!isDuplicate) {
-//       result.push(arr[i]);
-//     }
-//   }
-//   return result;
-// }
-
-// console.log(duplicating(arr));
+function duplicating(arr) {
+  let result = [];
+  for (let i = 0; i < arr.length; i++) {
+    let isDuplicate = false;
+    for (let j = 0; j < result.length; j++) {
+      if (arr[i] === result[j]) {
+        isDuplicate = true;
+        break;
+      }
+    }
+    if (!isDuplicate) {
+      result.push(arr[i]);
+    }
+  }
+  return result;
+}
+console.log(duplicating(arr));
 
 // function sorting(arr) {
 //   for (let i = 0; i < arr.length; i++) {
@@ -62,29 +61,28 @@ arr = [2, 4, 5, 3, 4, 1];
 //     }
 //   }
 //   return arr;
-// }
-
+// // }
 // function sorting(arr) {
-//   //   return [...new Set(arr)];
-//   return arr.sort((a, b) => b - a);
+//   return [new Set(arr)];
+//   // return arr.sort((a, b) => b - a);
 // }
 
 // console.log(sorting(arr));
 
-function removeDuplicates(arr) {
-  const seen = {};
-  const result = [];
+// function removeDuplicates(arr) {
+//   const seen = {};
+//   const result = [];
 
-  for (let i = 0; i < arr.length; i++) {
-    if (!seen[arr[i]]) {
-      result.push(arr[i]);
-      seen[arr[i]] = true;
-    }
-  }
+//   for (let i = 0; i < arr.length; i++) {
+//     if (!seen[arr[i]]) {
+//       result.push(arr[i]);
+//       seen[arr[i]] = true;
+//     }
+//   }
 
-  return result;
-}
+//   return result;
+// }
 
-// Test
-const numbers = [1, 2, 2, 3, 4, 6, 4, 5];
-console.log(removeDuplicates(numbers));
+// // Test
+// const numbers = [1, 2, 2, 3, 4, 6, 4, 5];
+// console.log(removeDuplicates(numbers));
